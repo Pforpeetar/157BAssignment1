@@ -3,13 +3,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="CUSTOMER_TABLE")
+@NamedQuery(name = "Customer.findByName", query = "from Customer where name = :name")
 public class Customer {
-	@Column(name = "USER_ID")
 	private String id;
-	@Column(name = "USER_NAME", unique = true)
 	private String name;
-	@Column(name = "PASSWORD")
 	private String password;
+	
+	private Address address;
 	
 	@Id
 	@GeneratedValue
@@ -31,5 +31,11 @@ public class Customer {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

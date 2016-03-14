@@ -1,39 +1,21 @@
 package edu.cs157b.hibernate;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class ServiceLayer {
-	private static SessionFactory sessionFactory; 
 	private PizzaShopDAO dao;
 	
-	public void signUp() {
+	public void signUp(Customer user) {
 		System.out.println("Sign Up");
-	       Session session = null;
-	       Transaction transaction= null;
-	       
-	       try
-	       {
-	       sessionFactory = HibernateUtil.getSessionFactory();
-	       session = sessionFactory.openSession();
-	       transaction = session.beginTransaction();
-	       
-
-	       transaction.commit();
-	       }
-	       catch (HibernateException he)
-	       {
-	    	   transaction.rollback();
-	           System.out.println("Transaction is rolled back.");
-	       }
-	       finally
-	       {
-	         sessionFactory.close();
-	       }
+		dao.create(user);
 	}
-	
+		
 	public void logIn() {
 		System.out.println("Log In");
 	}
@@ -42,8 +24,10 @@ public class ServiceLayer {
 		System.out.println("Make Order");
 	}
 	
-	public void viewOrder() {
+	public void viewOrders() {
 		System.out.println("View Order");
+		
+
 	}
 	
 	public void changeOrder() {
@@ -55,6 +39,6 @@ public class ServiceLayer {
 	}
 	
 	public void closeSession() {
-		sessionFactory.close();
+		dao.closeSession();
 	}
 }
