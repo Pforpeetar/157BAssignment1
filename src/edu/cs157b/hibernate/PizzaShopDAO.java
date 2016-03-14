@@ -8,7 +8,8 @@ public interface PizzaShopDAO {
 	   Topping create(Topping topping);
 	   boolean update(Order order);
 	   boolean update(Customer user);
-	   boolean delete (Customer user);
+	   boolean delete(Customer user);
+	   boolean delete(Order order);
 	   Customer findByPrimaryKey(Integer PrimaryKey);
 	   List findByExample(Customer user, boolean fuzzy);
 	   List findByExample(Order order, boolean fuzzy);

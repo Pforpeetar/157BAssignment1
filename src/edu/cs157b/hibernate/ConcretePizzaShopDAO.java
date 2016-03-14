@@ -124,4 +124,10 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		sessionFactory.close();
 	}
 
+	@Override
+	public boolean delete(Order order) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

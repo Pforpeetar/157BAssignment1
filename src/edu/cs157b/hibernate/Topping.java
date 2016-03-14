@@ -14,8 +14,8 @@ public class Topping {
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name = "join_table",
-	joinColumns = {@JoinColumn(name="project_id")},
-	inverseJoinColumns = {@JoinColumn(name = "member_id")}
+	joinColumns = {@JoinColumn(name="topping_id")},
+	inverseJoinColumns = {@JoinColumn(name = "order_id")}
 	)
 	private List<Order> orders;
 	

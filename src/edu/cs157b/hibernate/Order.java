@@ -22,8 +22,8 @@ public class Order {
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name = "join_table",
-	joinColumns = {@JoinColumn(name="member_id")},
-	inverseJoinColumns = {@JoinColumn(name = "project_id")})
+	joinColumns = {@JoinColumn(name="order_id")},
+	inverseJoinColumns = {@JoinColumn(name = "topping_id")})
 	private List<Topping> toppings;
 	
 	public Order() {
@@ -36,5 +36,35 @@ public class Order {
 	public void setId(int orderId) {
 		this.orderId = orderId;
 	}
+	
+	public float price() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	
+	public Timestamp getTime() {
+		return deliveryTime;
+	}
+	public void setTime(Timestamp deliveryTime) {
+		this.deliveryTime = deliveryTime;
+	}
+	
+	public PizzaSize getSize() {
+		return size;
+	}
+	public void setSize(PizzaSize size) {
+		this.size = size;
+	}
+	
+	public PaymentMethod getPayment() {
+		return payment;
+	}
+	public void setPayment(PaymentMethod payment) {
+		this.payment = payment;
+	}
+	
+	
 	
 }
