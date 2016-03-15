@@ -1,23 +1,42 @@
 package edu.cs157b.hibernate;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="CUSTOMER_TABLE")
+@Table(name = "CUSTOMER_TABLE")
 @NamedQuery(name = "Customer.findByName", query = "from Customer where name = :name")
 public class Customer {
-	private String id;
+	@Id
+	@GeneratedValue (strategy = GenerationType.AUTO)
+	private int userId;
+	
+	@Column(name = "name", unique=true)
 	private String name;
 	private String password;
 	
 	private Address address;
 	
-	@Id
-	@GeneratedValue
-	public String getID() {
-		return id;
+	@OneToMany(mappedBy="user", targetEntity = Order.class,
+			fetch=FetchType.EAGER, cascade= CascadeType.ALL, orphanRemoval=true)
+			private List<Order> orders;
+	
+	Customer() {
+		name = "";
+		password = "";
+		address = null;
+		orders = null;
 	}
-	public void setID(String id) {
-		this.id = id;
+	
+	public Customer(String name, String password, Address address) {
+		this.name = name;
+		this.password = password;
+		this.address = address;
+	}
+	
+
+	public int getID() {
+		return userId;
 	}
 	public String getName() {
 		return name;
@@ -37,5 +56,15 @@ public class Customer {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public void addOrder(Order order) {
+		orders.add(order);
+	}
+	public void cancelOrder(int orderId) {
+		for (int i = 0; i < orders.size(); i++) {
+			if (orders.get(i).getId() == orderId) {
+				orders.remove(i);
+			}
+		}
 	}
 }

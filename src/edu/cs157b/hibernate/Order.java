@@ -1,12 +1,15 @@
 package edu.cs157b.hibernate;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name = "ORDER_TABLE")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Order {
 	@Id
@@ -15,9 +18,13 @@ public class Order {
 	float price;
 	Timestamp deliveryTime;
 	
-	@Enumerated(EnumType.ORDINAL)
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn(name="user_Id")
+	private Customer user;
+	
+	@Enumerated(EnumType.STRING)
 	private PizzaSize size;
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private PaymentMethod payment;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
@@ -37,7 +44,7 @@ public class Order {
 		this.orderId = orderId;
 	}
 	
-	public float price() {
+	public float getPrice() {
 		return price;
 	}
 	public void setPrice(float price) {
@@ -47,8 +54,10 @@ public class Order {
 	public Timestamp getTime() {
 		return deliveryTime;
 	}
-	public void setTime(Timestamp deliveryTime) {
-		this.deliveryTime = deliveryTime;
+	public void setDeliveryTime() {
+		Calendar c = new GregorianCalendar();
+		c.add(Calendar.MINUTE, 60);
+		deliveryTime = new Timestamp(c.getTime().getTime());
 	}
 	
 	public PizzaSize getSize() {
@@ -56,6 +65,7 @@ public class Order {
 	}
 	public void setSize(PizzaSize size) {
 		this.size = size;
+		price += size.getPrice();
 	}
 	
 	public PaymentMethod getPayment() {
@@ -65,6 +75,21 @@ public class Order {
 		this.payment = payment;
 	}
 	
+	public List<Topping> getToppings() {
+		return toppings;
+	}
 	
+	public void addTopping(Topping topping) {
+		toppings.add(topping);
+		price += topping.getPrice();
+	}
+	
+	public Customer getCustomer() {
+		return user;
+	}
+	
+	public void setCustomer(Customer user) {
+		this.user = user;
+	}
 	
 }

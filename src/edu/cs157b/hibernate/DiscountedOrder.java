@@ -4,9 +4,13 @@ import javax.persistence.*;
 
 @Entity
 public class DiscountedOrder extends Order{
-	private int discountRate;
+	private float discountRate = 0.9f;
 	
-	public int getDiscount() {
+	public DiscountedOrder() {
+		super.setPrice(super.getPrice()*discountRate);
+	}
+	
+	public float getDiscount() {
 		return discountRate;
 	}
 	public void setDiscount(int discountRate) {

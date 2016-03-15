@@ -4,15 +4,11 @@ import java.util.List;
 
 public interface PizzaShopDAO {
 	   Customer create(Customer user);
-	   Order create(Order order);
+	   Order create(Order order, Customer user);
 	   Topping create(Topping topping);
 	   boolean update(Order order);
-	   boolean update(Customer user);
-	   boolean delete(Customer user);
 	   boolean delete(Order order);
-	   Customer findByPrimaryKey(Integer PrimaryKey);
-	   List findByExample(Customer user, boolean fuzzy);
-	   List findByExample(Order order, boolean fuzzy);
-	   List findAll();
-	   void closeSession();
+	   Customer findByCredentials(String name, String password);
+	   Order findByPrimaryKey(Integer PrimaryKey);
+	   List findAll(Customer user);
 }

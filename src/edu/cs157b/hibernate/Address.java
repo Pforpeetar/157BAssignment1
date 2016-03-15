@@ -4,20 +4,30 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Address {
-	//@Column(name = "STREET_NAME")
-	private String street;
-	//@Column(name = "CITY_NAME")
+	private String streetname;
 	private String city;
-	//@Column(name = "STATE_NAME")
 	private String state; 
-	//@Column(name = "ZIPCODE_NAME")
 	private String zipcode; 
 	
+	public Address() {
+		streetname = "";
+		city = "";
+		state = "";
+		zipcode = "";
+	}
+	
+	public Address(String street, String city, String state, String zipcode) {
+		this.streetname = street;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
+	}
+	
 	public String getStreet() {
-		return street;
+		return streetname;
 	}
 	public void setStreet(String street) {
-		this.street = street;
+		this.streetname = street;
 	}
 	public String getCity() {
 		return city;

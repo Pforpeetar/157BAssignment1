@@ -9,36 +9,35 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 public class ServiceLayer {
-	private PizzaShopDAO dao;
-	
-	public void signUp(Customer user) {
+	public static void signUp(String name, String password, String street, String city, String state, String zipcode) {
 		System.out.println("Sign Up");
+		Address address = new Address(street, city, state, zipcode);
+		Customer user = new Customer(name, password, address);
+		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
 		dao.create(user);
 	}
 		
-	public void logIn() {
+	public static void logIn(String name, String password) {
 		System.out.println("Log In");
+		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
+		dao.findByCredentials(name, password);
 	}
 	
-	public void makeOrder() {
+	public static void makeOrder() {
 		System.out.println("Make Order");
 	}
 	
-	public void viewOrders() {
+	public static void viewOrders() {
 		System.out.println("View Order");
 		
 
 	}
 	
-	public void changeOrder() {
+	public static void changeOrder() {
 		System.out.println("Change Order");
 	}
 	
-	public void cancelOrder() {
+	public static void cancelOrder() {
 		System.out.println("Cancel Order");
-	}
-	
-	public void closeSession() {
-		dao.closeSession();
 	}
 }
