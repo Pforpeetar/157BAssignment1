@@ -22,7 +22,7 @@
         
         <!-- Echo all executed SQL to stdout -->
         <!-- <property name="show_sql">true</property> -->
-
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
         <!-- Drop the existing tables and create new one -->
         <property name="hbm2ddl.auto">create</property>
  
