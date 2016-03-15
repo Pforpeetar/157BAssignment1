@@ -42,12 +42,39 @@ public class PresentationLayer {
 	}
 	
 	static void makeRegOrder(Scanner in) {
-		ServiceLayer.makeOrder(name, pass);
+		System.out.println("||=================Choose Size:==================||");
+		System.out.println("||[S]mall: $3.00, [M]edium: $5.00, [L]arge: $7.00||");
+		String size = in.nextLine().toLowerCase();
+		PizzaSize sizeEnum = null;
+		if (size.equals("s")) {
+			sizeEnum = PizzaSize.SMALL;
+		} else if (size.equals("m")) {
+			sizeEnum = PizzaSize.MEDIUM;
+		} else if (size.equals("l")) {
+			sizeEnum = PizzaSize.LARGE;
+		}
+		System.out.println("||=========================Choose 3 Toppings:==========================||");
+		System.out.println("||[P]epperoni: 0.50, [M]ushrooms: 0.25, [O]nions: 0.30, [S]ausage: 1.00||");
+		System.out.println("||[B]acon: 1.50, [E]xtra Cheese: 1.00, [Bl]ack Olives: 0.50||");
+		System.out.println("||[G]reen Peppers: 0.75, [Pi]napple: 0.80, [Sp]inach: 2.00||");
+		String top1 = in.nextLine().toLowerCase();
+		System.out.println("||=========================Choose 2 Toppings:==========================||");
+		System.out.println("||[P]epperoni: 0.50, [M]ushrooms: 0.25, [O]nions: 0.30, [S]ausage: 1.00||");
+		System.out.println("||[B]acon: 1.50, [E]xtra Cheese: 1.00, [Bl]ack Olives: 0.50||");
+		System.out.println("||[G]reen Peppers: 0.75, [Pi]napple: 0.80, [Sp]inach: 2.00||");
+		String top2 = in.nextLine().toLowerCase();
+		System.out.println("||=========================Choose 1 Toppings:==========================||");
+		System.out.println("||[P]epperoni: 0.50, [M]ushrooms: 0.25, [O]nions: 0.30, [S]ausage: 1.00||");
+		System.out.println("||[B]acon: 1.50, [E]xtra Cheese: 1.00, [Bl]ack Olives: 0.50||");
+		System.out.println("||[G]reen Peppers: 0.75, [Pi]napple: 0.80, [Sp]inach: 2.00||");
+		String top3 = in.nextLine().toLowerCase();
+		
+		ServiceLayer.makeOrder(name, pass, sizeEnum, top1, top2, top3);
 		promptInput(in);
 	}
 	
 	static void makeDiscountOrder(Scanner in) {
-		ServiceLayer.makeOrder(name, pass);
+		//ServiceLayer.makeOrder(name, pass);
 		promptInput(in);
 	}
 	

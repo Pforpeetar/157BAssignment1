@@ -43,25 +43,25 @@ public class Topping {
 	
 	public void setTopping(String type) {
 		switch(type) {
-			case "Pepperoni": type = "Pepperoni";
+			case "p": type = "Pepperoni";
 				price = 0.5f;
-			case "Mushrooms": type = "Mushrooms";
+			case "m": type = "Mushrooms";
 				price = 0.25f;
-			case "Onions": type = "Onions";
+			case "o": type = "Onions";
 				price = 0.3f;
-			case "Sausage": type = "Sausage";
+			case "s": type = "Sausage";
 				price = 1f;
-			case "Bacon": type = "Bacon";
+			case "b": type = "Bacon";
 				price = 1.5f;
-			case "Extra cheese": type = "Extra cheese";
+			case "e": type = "Extra cheese";
 				price = 1f;
-			case "Black olives": type = "Black olives";
+			case "bl": type = "Black olives";
 				price = 0.5f;
-			case "Green peppers": type = "Green peppers";
+			case "g": type = "Green peppers";
 				price = 0.75f;
-			case "Pineapple": type = "Pineapple";
+			case "pi": type = "Pineapple";
 				price = 0.8f;
-			case "Spinach": type = "Spinach";
+			case "sp": type = "Spinach";
 				price = 2f;
 		}
 	}

@@ -23,13 +23,14 @@ public class ServiceLayer {
 		dao.findByCredentials(name, password);
 	}
 	
-	public static void makeOrder(String name, String password) {
+	public static void makeOrder(String name, String password, PizzaSize size, String top1, String top2, String top3) {
 		System.out.println("Make Order");
 		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
 		Customer user = dao.findByCredentials(name, password);
 		Order order = new Order();
 		order.setDeliveryTime();
 		order.setCustomer(user);
+		order.setSize(size);
 		dao.create(order);
 	}
 	

@@ -55,11 +55,12 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		Session session = sessionFactory.openSession();
 	    session.beginTransaction();
 	   
-		String queryString = "from Customer";
-		// MATCH WITH ORDERS
+		String queryString = "from Order";
+		// MATCH WITH ORDERS 
 		Query queryResult = session.createQuery(queryString);
 	
 		session.getTransaction().commit();
+		session.close();
 		return queryResult.list();
 	}
 
@@ -91,9 +92,11 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		session.beginTransaction();
 
 		//RIP!
-		String queryString = "from Customer where name = " + name + " and password = " + password;
-		System.out.println(queryString);
+		String queryString = "from Customer where name = :name and password = :password";
 		Query query = session.createQuery(queryString);
+		query.setString("name", name);
+		query.setString("password", password);
+		System.out.println(queryString);
 		Customer user = (Customer) query.uniqueResult();
 		
 		session.getTransaction().commit();

@@ -18,7 +18,7 @@ public class Customer {
 	private Address address;
 	
 	@OneToMany(mappedBy = "user", targetEntity = Order.class,
-			fetch=FetchType.EAGER, cascade= CascadeType.ALL, orphanRemoval=true)
+			fetch=FetchType.EAGER, cascade= CascadeType.ALL)
 			private List<Order> orders;
 	
 	Customer() {
