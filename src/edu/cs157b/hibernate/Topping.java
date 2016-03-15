@@ -42,27 +42,40 @@ public class Topping {
 	}
 	
 	public void setTopping(String type) {
-		switch(type) {
+		switch(type.toLowerCase()) {
 			case "p": type = "Pepperoni";
 				price = 0.5f;
+				break;
 			case "m": type = "Mushrooms";
 				price = 0.25f;
+				break;
 			case "o": type = "Onions";
 				price = 0.3f;
+				break;
 			case "s": type = "Sausage";
 				price = 1f;
+				break;
 			case "b": type = "Bacon";
 				price = 1.5f;
+				break;
 			case "e": type = "Extra cheese";
 				price = 1f;
+				break;
 			case "bl": type = "Black olives";
 				price = 0.5f;
+				break;
 			case "g": type = "Green peppers";
 				price = 0.75f;
+				break;
 			case "pi": type = "Pineapple";
 				price = 0.8f;
+				break;
 			case "sp": type = "Spinach";
 				price = 2f;
+				break;
+			default:
+				price = 0;
+				break;
 		}
 	}
 	public String getTopping() {

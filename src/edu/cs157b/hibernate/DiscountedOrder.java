@@ -13,7 +13,7 @@ public class DiscountedOrder extends Order{
 	public float getDiscount() {
 		return discountRate;
 	}
-	public void setDiscount(int discountRate) {
-		this.discountRate = discountRate;
+	public void setDiscount() {
+		super.setPrice(super.getPrice()*discountRate);
 	}
 }

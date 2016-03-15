@@ -23,15 +23,49 @@ public class ServiceLayer {
 		dao.findByCredentials(name, password);
 	}
 	
-	public static void makeOrder(String name, String password, PizzaSize size, String top1, String top2, String top3) {
+	public static void makeOrder(String name, String password, PizzaSize size, String top1, String top2, String top3, PaymentMethod payment, boolean discount) {
 		System.out.println("Make Order");
 		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
-		Customer user = dao.findByCredentials(name, password);
-		Order order = new Order();
-		order.setDeliveryTime();
-		order.setCustomer(user);
-		order.setSize(size);
-		dao.create(order);
+		if (discount) {
+			DiscountedOrder order = new DiscountedOrder();
+			
+			order.setDeliveryTime();
+			order.setCustomer(dao.findByCredentials(name, password));
+			
+			order.setSize(size);
+			Topping t1 = new Topping();
+			t1.setTopping(top1);
+			Topping t2 = new Topping();
+			t2.setTopping(top2);
+			Topping t3 = new Topping();
+			t3.setTopping(top3);
+			
+			order.addTopping(t1);
+			order.addTopping(t2);
+			order.addTopping(t3);
+			order.setPayment(payment);
+			order.setDiscount();
+			System.out.println("Discounted Price: " + order.price);
+			dao.create(order);
+		} else {
+			Order order = new Order();
+			
+			order.setDeliveryTime();
+			order.setCustomer(dao.findByCredentials(name, password));
+			order.setSize(size);
+			Topping t1 = new Topping();
+			t1.setTopping(top1);
+			Topping t2 = new Topping();
+			t2.setTopping(top2);
+			Topping t3 = new Topping();
+			t3.setTopping(top3);
+			order.addTopping(t1);
+			order.addTopping(t2);
+			order.addTopping(t3);
+			order.setPayment(payment);
+			System.out.println("Reg Price: " + order.price);
+			dao.create(order);
+		}
 	}
 	
 	public static void viewOrders() {

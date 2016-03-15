@@ -43,8 +43,6 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 	public Order findByPrimaryKey(Integer PrimaryKey) { 
 		Session session = sessionFactory.openSession();
 	    session.beginTransaction();
-
-	    session.beginTransaction();
 		Object pojo  = session.get(Order.class, PrimaryKey);
 		session.getTransaction().commit();
 		return (Order)pojo;

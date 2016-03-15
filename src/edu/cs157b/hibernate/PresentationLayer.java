@@ -41,7 +41,7 @@ public class PresentationLayer {
 		ServiceLayer.logIn(name, pass);
 	}
 	
-	static void makeRegOrder(Scanner in) {
+	static void makeOrder(Scanner in, boolean discount) {
 		System.out.println("||=================Choose Size:==================||");
 		System.out.println("||[S]mall: $3.00, [M]edium: $5.00, [L]arge: $7.00||");
 		String size = in.nextLine().toLowerCase();
@@ -69,12 +69,19 @@ public class PresentationLayer {
 		System.out.println("||[G]reen Peppers: 0.75, [Pi]napple: 0.80, [Sp]inach: 2.00||");
 		String top3 = in.nextLine().toLowerCase();
 		
-		ServiceLayer.makeOrder(name, pass, sizeEnum, top1, top2, top3);
-		promptInput(in);
-	}
-	
-	static void makeDiscountOrder(Scanner in) {
-		//ServiceLayer.makeOrder(name, pass);
+		System.out.println("||====Choose Payment:=====||");
+		System.out.println("||[C]ash, [V]isa, [M]aster||");
+		String payment = in.nextLine().toLowerCase();
+		PaymentMethod paymentEnum = null;
+		if (payment.equals("c")) {
+			paymentEnum = PaymentMethod.CASH;
+		} else if (payment.equals("v")) {
+			paymentEnum = PaymentMethod.VISA;;
+		} else if (payment.equals("m")) {
+			paymentEnum = PaymentMethod.MASTER;
+		}
+		
+		ServiceLayer.makeOrder(name, pass, sizeEnum, top1, top2, top3, paymentEnum, discount);
 		promptInput(in);
 	}
 	
@@ -95,12 +102,13 @@ public class PresentationLayer {
 	
 
 	static void promptInput(Scanner in) {
+		System.out.println();
 		System.out.println("[M]ake Order, [D]iscount Order, [V]iew Orders, [E]dit Order, [C]ancel Order, [Q]uit");
 		String input = in.nextLine().toLowerCase();
 		if (input.equals("m")) {
-			makeRegOrder(in);
+			makeOrder(in, false);
 		} else if (input.equals("d")) {
-			makeDiscountOrder(in);
+			makeOrder(in, true);
 		} else if (input.equals("v")) {
 			viewOrders(in);
 		} else if (input.equals("e")) {
