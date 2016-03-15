@@ -22,10 +22,11 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 	}
 
 	@Override
-	public Order create(Order order, Customer user) {
+	public Order create(Order order) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		// TO DO
+		session.save(order);
 		session.getTransaction().commit();
 		session.close();
 		
@@ -90,10 +91,14 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		session.beginTransaction();
 
 		//RIP!
+		String queryString = "from Customer where name = " + name + " and password = " + password;
+		System.out.println(queryString);
+		Query query = session.createQuery(queryString);
+		Customer user = (Customer) query.uniqueResult();
 		
 		session.getTransaction().commit();
 		session.close();
-		return null;
+		return user;
 	}
 
 }

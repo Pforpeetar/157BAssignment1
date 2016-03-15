@@ -21,6 +21,10 @@ public class Topping {
 	)
 	private List<Order> orders;
 	
+	Topping() {
+		orders = null;
+	}
+	
 	public Topping(String type) {
 		orders = new ArrayList<Order>();
 		setTopping(type);

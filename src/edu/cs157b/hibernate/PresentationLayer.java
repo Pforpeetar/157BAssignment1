@@ -4,21 +4,23 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class PresentationLayer {
+	private static String name;
+	private static String pass;
 	
 	public static void main(String[] args) {
+		
 		Scanner in = new Scanner(System.in);
 		startService(in);
 		in.close();
 	}
 	
 	static void signIn(Scanner in) {
-		System.out.println("||====Input Information:====||");
+		System.out.println("||====Sign Up Information:====||");
 		System.out.print("NAME: ");
-		String name = in.next().toLowerCase();
+		String name = in.nextLine().toLowerCase();
 		System.out.print("PASSWORD: ");
-		String password = in.next().toLowerCase();
+		String password = in.nextLine().toLowerCase();
 		System.out.print("STREET: ");
-		in.nextLine();
 		String street = in.nextLine().toLowerCase();
 		System.out.print("STATE: ");
 		String state = in.nextLine().toLowerCase();
@@ -33,19 +35,19 @@ public class PresentationLayer {
 	static void logIn(Scanner in) {
 		System.out.println("||====Input Login Information:====||");
 		System.out.print("NAME: ");
-		String name = in.next().toLowerCase();
+		name = in.nextLine().toLowerCase();
 		System.out.print("PASSWORD: ");
-		String password = in.next().toLowerCase();
-		ServiceLayer.logIn(name, password);
+		pass = in.nextLine().toLowerCase();
+		ServiceLayer.logIn(name, pass);
 	}
 	
 	static void makeRegOrder(Scanner in) {
-		ServiceLayer.makeOrder();
+		ServiceLayer.makeOrder(name, pass);
 		promptInput(in);
 	}
 	
 	static void makeDiscountOrder(Scanner in) {
-		ServiceLayer.makeOrder();
+		ServiceLayer.makeOrder(name, pass);
 		promptInput(in);
 	}
 	
@@ -67,7 +69,7 @@ public class PresentationLayer {
 
 	static void promptInput(Scanner in) {
 		System.out.println("[M]ake Order, [D]iscount Order, [V]iew Orders, [E]dit Order, [C]ancel Order, [Q]uit");
-		String input = in.next().toLowerCase();
+		String input = in.nextLine().toLowerCase();
 		if (input.equals("m")) {
 			makeRegOrder(in);
 		} else if (input.equals("d")) {
@@ -90,7 +92,7 @@ public class PresentationLayer {
 		System.out.println("||[S]ign Up, [L]og In, [Q]uit||");
 		System.out.println("||===========================||");
 		System.out.print("INPUT: ");
-		String input = in.next().toLowerCase();
+		String input = in.nextLine().toLowerCase();
 		if (input.equals("s")) {
 			signIn(in);
 			promptInput(in);

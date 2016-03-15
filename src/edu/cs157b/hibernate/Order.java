@@ -13,13 +13,13 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Order {
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	int orderId;
 	float price;
 	Timestamp deliveryTime;
 	
 	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn(name="user_Id")
+	@JoinColumn(name = "userId")
 	private Customer user;
 	
 	@Enumerated(EnumType.STRING)

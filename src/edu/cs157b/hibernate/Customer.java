@@ -8,7 +8,7 @@ import javax.persistence.*;
 @NamedQuery(name = "Customer.findByName", query = "from Customer where name = :name")
 public class Customer {
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private int userId;
 	
 	@Column(name = "name", unique=true)
@@ -17,7 +17,7 @@ public class Customer {
 	
 	private Address address;
 	
-	@OneToMany(mappedBy="user", targetEntity = Order.class,
+	@OneToMany(mappedBy = "user", targetEntity = Order.class,
 			fetch=FetchType.EAGER, cascade= CascadeType.ALL, orphanRemoval=true)
 			private List<Order> orders;
 	

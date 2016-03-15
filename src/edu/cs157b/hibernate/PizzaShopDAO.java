@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PizzaShopDAO {
 	   Customer create(Customer user);
-	   Order create(Order order, Customer user);
+	   Order create(Order order);
 	   Topping create(Topping topping);
 	   boolean update(Order order);
 	   boolean delete(Order order);

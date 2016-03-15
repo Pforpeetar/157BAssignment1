@@ -23,21 +23,29 @@ public class ServiceLayer {
 		dao.findByCredentials(name, password);
 	}
 	
-	public static void makeOrder() {
+	public static void makeOrder(String name, String password) {
 		System.out.println("Make Order");
+		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
+		Customer user = dao.findByCredentials(name, password);
+		Order order = new Order();
+		order.setDeliveryTime();
+		order.setCustomer(user);
+		dao.create(order);
 	}
 	
 	public static void viewOrders() {
 		System.out.println("View Order");
-		
+		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
 
 	}
 	
 	public static void changeOrder() {
 		System.out.println("Change Order");
+		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
 	}
 	
 	public static void cancelOrder() {
 		System.out.println("Cancel Order");
+		ConcretePizzaShopDAO dao = new ConcretePizzaShopDAO();
 	}
 }
