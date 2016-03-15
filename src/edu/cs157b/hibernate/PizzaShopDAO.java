@@ -10,5 +10,5 @@ public interface PizzaShopDAO {
 	   boolean delete(Order order);
 	   Customer findByCredentials(String name, String password);
 	   Order findByPrimaryKey(Integer PrimaryKey);
-	   List findAll(Customer user);
+	   List<Order> findAll(Customer user);
 }

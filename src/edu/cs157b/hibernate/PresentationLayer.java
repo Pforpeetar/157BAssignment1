@@ -38,7 +38,12 @@ public class PresentationLayer {
 		name = in.nextLine().toLowerCase();
 		System.out.print("PASSWORD: ");
 		pass = in.nextLine().toLowerCase();
-		ServiceLayer.logIn(name, pass);
+		if (ServiceLayer.logIn(name, pass)) {
+			promptInput(in);	
+		} else {
+			System.out.println("Failed to Log in.");
+			startService(in);
+		}
 	}
 	
 	static void makeOrder(Scanner in, boolean discount) {
@@ -86,17 +91,64 @@ public class PresentationLayer {
 	}
 	
 	static void viewOrders(Scanner in) {
-		ServiceLayer.viewOrders();
-		promptInput(in);
+		ServiceLayer.viewOrders(name, pass);
 	}
 	
 	static void changeOrder(Scanner in) {
-		ServiceLayer.changeOrder();
+		viewOrders(in);
+		
+		System.out.println("||=================Choose Order:==================||");
+		int orderId = in.nextInt();
+		in.nextLine();
+		System.out.println("||=================Choose Size:==================||");
+		System.out.println("||[S]mall: $3.00, [M]edium: $5.00, [L]arge: $7.00||");
+		String size = in.nextLine().toLowerCase();
+		PizzaSize sizeEnum = null;
+		if (size.equals("s")) {
+			sizeEnum = PizzaSize.SMALL;
+		} else if (size.equals("m")) {
+			sizeEnum = PizzaSize.MEDIUM;
+		} else if (size.equals("l")) {
+			sizeEnum = PizzaSize.LARGE;
+		}
+		System.out.println("||=========================Choose 3 Toppings:==========================||");
+		System.out.println("||[P]epperoni: 0.50, [M]ushrooms: 0.25, [O]nions: 0.30, [S]ausage: 1.00||");
+		System.out.println("||[B]acon: 1.50, [E]xtra Cheese: 1.00, [Bl]ack Olives: 0.50||");
+		System.out.println("||[G]reen Peppers: 0.75, [Pi]napple: 0.80, [Sp]inach: 2.00||");
+		String top1 = in.nextLine().toLowerCase();
+		System.out.println("||=========================Choose 2 Toppings:==========================||");
+		System.out.println("||[P]epperoni: 0.50, [M]ushrooms: 0.25, [O]nions: 0.30, [S]ausage: 1.00||");
+		System.out.println("||[B]acon: 1.50, [E]xtra Cheese: 1.00, [Bl]ack Olives: 0.50||");
+		System.out.println("||[G]reen Peppers: 0.75, [Pi]napple: 0.80, [Sp]inach: 2.00||");
+		String top2 = in.nextLine().toLowerCase();
+		System.out.println("||=========================Choose 1 Toppings:==========================||");
+		System.out.println("||[P]epperoni: 0.50, [M]ushrooms: 0.25, [O]nions: 0.30, [S]ausage: 1.00||");
+		System.out.println("||[B]acon: 1.50, [E]xtra Cheese: 1.00, [Bl]ack Olives: 0.50||");
+		System.out.println("||[G]reen Peppers: 0.75, [Pi]napple: 0.80, [Sp]inach: 2.00||");
+		String top3 = in.nextLine().toLowerCase();
+		
+		System.out.println("||====Choose Payment:=====||");
+		System.out.println("||[C]ash, [V]isa, [M]aster||");
+		String payment = in.nextLine().toLowerCase();
+		PaymentMethod paymentEnum = null;
+		if (payment.equals("c")) {
+			paymentEnum = PaymentMethod.CASH;
+		} else if (payment.equals("v")) {
+			paymentEnum = PaymentMethod.VISA;;
+		} else if (payment.equals("m")) {
+			paymentEnum = PaymentMethod.MASTER;
+		}
+		
+		ServiceLayer.changeOrder(sizeEnum, top1, top2, top3, paymentEnum, orderId);
 		promptInput(in);
 	}
 	
 	static void cancelOrder(Scanner in) {
-		ServiceLayer.cancelOrder();
+		viewOrders(in);
+		System.out.println("Enter Order ID to delete");
+		int input = in.nextInt();
+		in.nextLine();
+		ServiceLayer.cancelOrder(name, pass, input);
 		promptInput(in);
 	}
 	
@@ -111,6 +163,7 @@ public class PresentationLayer {
 			makeOrder(in, true);
 		} else if (input.equals("v")) {
 			viewOrders(in);
+			promptInput(in);
 		} else if (input.equals("e")) {
 			changeOrder(in);
 		} else if (input.equals("c")) {
@@ -133,7 +186,6 @@ public class PresentationLayer {
 			promptInput(in);
 		} else if (input.equals("l")) {
 			logIn(in);
-			promptInput(in);
 		} else if (input.equals("q")){
 			System.exit(0);
 		} else {

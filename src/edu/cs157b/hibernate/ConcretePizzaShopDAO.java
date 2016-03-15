@@ -35,8 +35,12 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 
 	@Override
 	public Topping create(Topping topping) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(topping);
+		session.getTransaction().commit();
+		session.close();
+		return topping;
 	}
 
 	@Override
@@ -45,21 +49,23 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 	    session.beginTransaction();
 		Object pojo  = session.get(Order.class, PrimaryKey);
 		session.getTransaction().commit();
+		session.close();
 		return (Order)pojo;
 	}
 
 	@Override
-	public List findAll(Customer user) {
+	public List<Order> findAll(Customer user) {
 		Session session = sessionFactory.openSession();
 	    session.beginTransaction();
-	   
-		String queryString = "from Order";
-		// MATCH WITH ORDERS 
+		String queryString = "from Order where userid = :user";
 		Query queryResult = session.createQuery(queryString);
-	
+		System.out.println(queryString);
+		queryResult.setParameter("user", user);
+		List<Order> result = queryResult.list();
 		session.getTransaction().commit();
 		session.close();
-		return queryResult.list();
+
+		return result;
 	}
 
 	@Override
@@ -94,7 +100,7 @@ public class ConcretePizzaShopDAO implements PizzaShopDAO {
 		Query query = session.createQuery(queryString);
 		query.setString("name", name);
 		query.setString("password", password);
-		System.out.println(queryString);
+
 		Customer user = (Customer) query.uniqueResult();
 		
 		session.getTransaction().commit();

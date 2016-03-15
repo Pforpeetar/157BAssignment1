@@ -76,7 +76,7 @@ public class Order {
 	}
 	
 	public List<Topping> getToppings() {
-		return toppings;
+		return this.toppings;
 	}
 	
 	public void addTopping(Topping topping) {
